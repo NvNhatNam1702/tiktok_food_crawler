@@ -13,7 +13,6 @@ def get_tiktok_search_urls(keyword, max_videos):
     options.binary_location= "/usr/bin/chromium"
     # options.add_argument("--headless")  # Uncomment if you feel lucky
     options.add_argument("--disable-blink-features=AutomationControlled")
-    # options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
     #set up service 
     service = Service("/usr/bin/chromedriver")
 
@@ -28,7 +27,7 @@ def get_tiktok_search_urls(keyword, max_videos):
     # TikTok almost always throws a captcha on search pages. 
     print("\n⚠️  PLEASE SOLVE CAPTCHA IN THE BROWSER IF IT APPEARS! ⚠️")
     print("Waiting 15 seconds...")
-    time.sleep(20) 
+    time.sleep(10) 
 
     collected_urls = set()
     scroll_attemp = 0 
