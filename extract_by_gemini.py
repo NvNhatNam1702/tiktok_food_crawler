@@ -10,7 +10,7 @@ import os
 import json
 import pandas as pd
 
-
+# TODO : testing a file 
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 
 
