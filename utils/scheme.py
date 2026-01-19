@@ -1,11 +1,12 @@
+from tokenize import Ignore
 from typing import Optional
 from pydantic import BaseModel
 
 
 class FoodItem(BaseModel):
     food_name: str
-    price: Optional[str] = "N/A"
-    location: Optional[str] = "N/A"
+    price: str
+    location: str
 
 
 class FoodList(BaseModel):

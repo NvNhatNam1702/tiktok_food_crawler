@@ -9,13 +9,16 @@ import google.generativeai as genai
 import os
 import json
 import pandas as pd
+from dotenv import load_dotenv
+import time
 
-# TODO : testing a file 
+load_dotenv()
+# TODO : testing a file
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 
 
 def extract_info(text):
-    model = genai.GenerativeModel(model_name="gemini-2.0-flash")
+    model = genai.GenerativeModel(model_name="gemini-2.5-flash-lite")
 
     prompt = f"{PROMPT}+{text}"
     try:
@@ -25,33 +28,39 @@ def extract_info(text):
                 response_mime_type="application/json", response_schema=FoodList
             ),
         )
+        print(f"{response.text}")
         # return json.loads(response.text).get("items", [])
         return json.loads(response.text)
     except Exception as e:
         print(f"error occured in processing text: {e}")
         return []
 
-def parse_to_csv(input_dir, output_csv): 
-    all_data =[]
+
+def parse_to_csv(input_dir, output_csv):
+    all_data = []
+    len_data = len(os.listdir(input_dir))
+    if len_data == 0:
+        print(f"no data in {input_dir}")
+    print(f"{len_data}")
     for filename in os.listdir(input_dir):
         if filename.endswith(".txt"):
             file_path = os.path.join(input_dir, filename)
-
             try:
-                with open(file_path, "r", encoding='uft-8') as f :
-                    content = f.read() 
-            except Exception as e: 
-                print("there an erorr in reading txt")
+                with open(file_path, "r", encoding="utf-8") as f:
+                    content = f.read()
+            except Exception as e:
+                print(f"there an erorr in reading txt : {e}")
                 content = []
-            if content.strip():            
+            if content:
                 item = extract_info(content)
+                time.sleep(5)
                 all_data.append(item)
     if all_data:
         df = pd.DataFrame(all_data)
         df.to_csv(output_csv)
         print(f"success!!")
-    else: 
+    else:
         print(f"no data")
 
-parse_to_csv("cleaned_text", "data.csv")
-                
+
+parse_to_csv("/home/nampc/code/personal/tiktok/cleaned_text", "data.csv")

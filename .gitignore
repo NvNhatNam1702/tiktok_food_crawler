@@ -1,3 +1,4 @@
 search_results/*
 cleaned_text/*
 .env
+__pycache__/
