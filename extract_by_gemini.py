@@ -41,7 +41,6 @@ def parse_to_csv(input_dir, output_csv):
     len_data = len(os.listdir(input_dir))
     if len_data == 0:
         print(f"no data in {input_dir}")
-    print(f"{len_data}")
     for filename in os.listdir(input_dir):
         if filename.endswith(".txt"):
             file_path = os.path.join(input_dir, filename)
@@ -63,4 +62,4 @@ def parse_to_csv(input_dir, output_csv):
         print(f"no data")
 
 
-parse_to_csv("/home/nampc/code/personal/tiktok/cleaned_text", "data.csv")
+parse_to_csv("/home/nampc/code/personal/tiktok/test_data/", "data.csv")
